@@ -4,17 +4,18 @@ var views = require('views');
 $(document).ready(function(){
   $('body').prepend(JST.application());
 
-function Player(character){
+function Player(character) {
   this.health = 100,
   this.name = character.name
 }
+
+
 Player.prototype.attack = function(min,max){
   return Math.ceil(Math.random() * 10);
-  }
 }
 
 Player.prototype.specialAttack = function(attack){
-  return this.health - Math.ceil(Math.random() * 20);
+  return  Math.ceil(Math.random() * 20) - attack.name
 }
 
 var scorpion = new Player({name: 'Scorpion'});
