@@ -8,7 +8,7 @@ $(document).ready(function(){
 var selectedEnemy = _.sample(enemyList);
 
 var selectedPlayer = $('.character').on('click',function(event){
-        alert("You have picked " + $(this).text() + " as your player.");
+    console.log($(this).text());
       });
 
 var scorpion = new Player({name: 'Scorpion'});
@@ -28,7 +28,8 @@ Player.prototype.attack = function(enemy){
   var playerAttack =  Math.ceil(Math.random() * 10);
   enemyHealth = enemyHealth - playerAttack;
   enemy.health = enemyHealth;
-  console.log(this.name + " did " + playerAttack + "%" + " damage to " + enemy.name +"." + " Jaxx now has " + enemyHealth + "%"  + " health.");
+  console.log(this.name + " did " + playerAttack + "%" + " damage to " + enemy.name +". " + enemy.name  + " now has " + enemyHealth + "%"  + " health.");
+  return enemy.attack(player);
 };
 
 Player.prototype.specialAttack = function(attack){
@@ -46,12 +47,13 @@ Enemy.prototype.attack = function(player){
   var enemyAttack = Math.ceil(Math.random() * 10);
   playerHealth = playerHealth - enemyAttack;
   player.health = playerHealth;
-  console.log(this.name + " did " + enemyAttack + "damage to " + player.name + ".");
+  console.log(this.name + " did " + enemyAttack + " damage to " + player.name + ". " + player.name + " now has " + playerHealth + "%" + " health.");
 };
 
 Enemy.prototype.specialAttack = function(attack){
-  Math.ceil(Math.random() * 20) - attack.name;
+  return Math.ceil(Math.random() * 20) - attack.name;
   };
+
 var reptile = new Enemy({name: 'Reptile'});
 var goro = new Enemy({name: 'Goro'});
 var sonya = new Enemy({name: 'Sonya'});
