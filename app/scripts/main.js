@@ -1,15 +1,24 @@
-var models = require('models');
-var views = require('views');
+// var models = require('models');
+// var views = require('views');
 
-$(document).ready(function(){
+
+var selectedPlayer;
+
+
+// $(document).ready(function(){
+
   $('body').prepend(JST.application());
 
+  var selectedEnemy = _.sample(enemyList);
 
-var selectedEnemy = _.sample(enemyList);
 
-var selectedPlayer = $('.character').on('click',function(event){
-    console.log($(this).text());
-      });
+   $('.character').on('click',function(event,player){
+      selectedPlayer = new Player( {name: $(this).text()} );
+      console.log(selectedPlayer)
+      //return selectedPlayer
+        });
+
+
 
 var scorpion = new Player({name: 'Scorpion'});
 var subZero = new Player({name: 'SubZero'});
@@ -18,10 +27,12 @@ var jaxx = new Player({name: 'Jaxx'});
 var playerList = [scorpion, subZero, raiden, jaxx];
 
 
+
 function Player(character) {
   this.health = 100;
   this.name = character.name;
 }
+
 Player.prototype.attack = function(enemy){
   var player = this;
   var enemyHealth = enemy.health;
@@ -65,4 +76,4 @@ var enemyList = [reptile, goro, sonya, katana];
 // function player1Choice(){
 //
 // }
-});
+// });
