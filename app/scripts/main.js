@@ -3,19 +3,29 @@
 
 
 var selectedPlayer;
+var delay = 2000;
 
 
 // $(document).ready(function(){
 
   $('body').prepend(JST.application());
 
-  var selectedEnemy = _.sample(enemyList);
+  var selectedEnemy;
 
 
    $('.character').on('click',function(event,player){
       selectedPlayer = new Player( {name: $(this).text()} );
-      console.log(selectedPlayer)
+      console.log(selectedPlayer);
       //return selectedPlayer
+      $('.startGame').on('click', function(event, player){
+        selectedEnemy = _.sample(enemyList);
+        setTimeout(function(){
+          console.log(selectedEnemy);
+        }, 2000);
+      });
+      $('.attackButton').on('click', function(){
+        selectedPlayer.attack(selectedEnemy);
+      });
         });
 
 
@@ -29,6 +39,7 @@ var playerList = [scorpion, subZero, raiden, jaxx];
 
 
 function Player(character) {
+  // character = character || {};
   this.health = 100;
   this.name = character.name;
 }
@@ -40,14 +51,22 @@ Player.prototype.attack = function(enemy){
   enemyHealth = enemyHealth - playerAttack;
   enemy.health = enemyHealth;
   console.log(this.name + " did " + playerAttack + "%" + " damage to " + enemy.name +". " + enemy.name  + " now has " + enemyHealth + "%"  + " health.");
-  return enemy.attack(player);
+  if(enemyHealth <= 0){
+    console.log(player.name + " has won the Fight!");
+  } else if(player.health <= 0) {
+    console.log(enemy.name + " has won the Fight!");
+  } else{
+    return enemy.attack(player);
+  }
 };
+
 
 Player.prototype.specialAttack = function(attack){
   return  Math.ceil(Math.random() * 20);
 };
 
 function Enemy(character){
+  // character = character || {};
   this.health = 100;
   this.name = character.name;
 }
@@ -55,10 +74,10 @@ function Enemy(character){
 Enemy.prototype.attack = function(player){
   var enemy = this;
   var playerHealth = player.health;
-  var enemyAttack = Math.ceil(Math.random() * 10);
+  var enemyAttack = Math.ceil(Math.random() * 10.1);
   playerHealth = playerHealth - enemyAttack;
   player.health = playerHealth;
-  console.log(this.name + " did " + enemyAttack + " damage to " + player.name + ". " + player.name + " now has " + playerHealth + "%" + " health.");
+  console.log(this.name + " did " + enemyAttack + "%" + " damage to " + player.name + ". " + player.name + " now has " + playerHealth + "%" + " health.");
 };
 
 Enemy.prototype.specialAttack = function(attack){
