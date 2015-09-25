@@ -8,13 +8,8 @@ $(document).ready(function(){
 var selectedEnemy = _.sample(enemyList);
 
 var selectedPlayer = $('.character').on('click',function(event){
-      $(this).css({color : 'red'});
-});
-
-
-console.log(selectedPlayer)
-
-
+        alert("You have picked " + $(this).text() + " as your player.");
+      });
 
 var scorpion = new Player({name: 'Scorpion'});
 var subZero = new Player({name: 'SubZero'});
