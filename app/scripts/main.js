@@ -4,25 +4,41 @@
 // var views = require('views');
 var selectedPlayer;
 var delay = 2000;
-// $(document).ready(function(){
+var selectedEnemy;
+
+//---Jquery magic
   $('body').prepend(JST.application());
-  var selectedEnemy;
+
    $('.js-character').on('click',function(event,player){
-      selectedPlayer = new Player( {name: $(this).text()} );
+      selectedPlayer = new Player( {name: $(this).text()});
+      $('.js-playerName').text(selectedPlayer.name);
       console.log(selectedPlayer);
       //return selectedPlayer
     });
+
       $('.js-startGame').on('click', function(event, player){
         selectedEnemy = _.sample(enemyList);
+        $('.js-enemyName').text(selectedEnemy.name);
         setTimeout(function(){
           console.log(selectedEnemy);
         }, 2000);
       });
+
       $('.js-attackButton').on('click', function(){
         selectedPlayer.attack(selectedEnemy);
+        $('.js-enemyHealth').text(selectedEnemy.health + "%");
+        $('.js-playerHealth').text(selectedPlayer.health + "%");
       });
+
       $('.js-specialAttack-btn').on('click', function(){
+        function button(){
+          $('.js-specialAttack-btn').fadeIn('fast').delay(1000).fadeOut('fast').delay(3000)
+          .fadeIn('fast').delay(1000).fadeOut('fast').delay(1000);
+        }
+        button();
         selectedPlayer.specialAttack(selectedEnemy);
+        $('.js-enemyHealth').text(selectedEnemy.health + "%");
+        $('.js-playerHealth').text(selectedPlayer.health + "%");
       });
 
       $('.charactersMenu h2').on('click', function(){
@@ -32,18 +48,47 @@ var delay = 2000;
         }
       });
 
+      //character displays on 'click'
+      $('.scorpion-li').on('click', function(){
+        $('.scorpion').css('display', 'block')
+        $('.subzero').css('display','none')
+        $('.raiden').css('display', 'none')
+        $('.jaxx').css('display', 'none')
+      })
 
+      $('.subzero-li').on('click', function(){
+       $('.subzero').css('display', 'block');
+       $('.raiden').css('display', 'none')
+       $('.jaxx').css('display', 'none')
+       $('.scorpion').css('display', 'none')
+      })
+
+      $('.raiden-li').on('click', function(){
+        $('.raiden').css('display', 'block');
+        $('.subzero').css('display', 'none');
+        $('.jaxx').css('display','none');
+        $('.scorpion').css('display', 'none');
+      })
+
+      $('.jaxx-li').on('click', function(){
+        $('.jaxx').css('display', 'block');
+        $('.scorpion').css('display','none');
+        $('.subzero').css('display','none');
+        $('.raiden').css('display','none');
+      })
 
 var scorpion = new Player({name: 'Scorpion'});
 var subZero = new Player({name: 'SubZero'});
 var raiden = new Player({name: 'Raiden'});
 var jaxx = new Player({name: 'Jaxx'});
 var playerList = [scorpion, subZero, raiden, jaxx];
+
+
 function Player(character) {
-  // character = character || {};
   this.health = 100;
   this.name = character.name;
 }
+
 Player.prototype.attack = function(enemy){
   var player = this;
   var enemyHealth = enemy.health;
@@ -60,6 +105,7 @@ Player.prototype.attack = function(enemy){
        return enemy.attack(player);
   }
 };
+
 Player.prototype.specialAttack = function(enemy){
   var spPlayer = this;
   var eHealth = enemy.health;
@@ -78,11 +124,13 @@ Player.prototype.specialAttack = function(enemy){
     enemy.specialAttack(spPlayer);
   }
 };
+
 function Enemy(character){
   // character = character || {};
   this.health = 100;
   this.name = character.name;
 }
+
 Enemy.prototype.attack = function(player){
   var enemy = this;
   var playerHealth = player.health;
@@ -92,6 +140,7 @@ Enemy.prototype.attack = function(player){
   var enemyBar = $(".enemy-status-bar").css('width', playerHealth / 2 + "%");
   console.log(this.name + " did " + enemyAttack + "%" + " damage to " + player.name + ". " + player.name + " now has " + playerHealth + "%" + " health.");
 };
+
 Enemy.prototype.specialAttack = function(player){
   var spEnemy = this;
   var phealth = player.health;

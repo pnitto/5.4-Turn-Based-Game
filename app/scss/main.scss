@@ -55,12 +55,23 @@ top: 0;
   width: 49%;
   float:right;
 }
+
+.player-status-bar h1,
+.enemy-status-bar h1, {
+  padding-top: 10px;
+}
 //Game section
 .game-section {
   margin-top: 5%;
 }
+
 //Pictures
-.scorpion {
-  background: transparent;
+.players {
+  height: 340px;
+  display: none;
+}
+//Enemies
+.enemies {
+  height: 340px;
   display: none;
 }
