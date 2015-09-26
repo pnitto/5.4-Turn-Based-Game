@@ -24,6 +24,7 @@ var delay = 2000;
       $('.js-specialAttack-btn').on('click', function(){
         selectedPlayer.specialAttack(selectedEnemy);
       });
+
       $('.charactersMenu h2').on('click', function(){
         $('.charactersMenu ul ul').slideUp();
         if(!$(this).next().is(':visible')){
@@ -99,7 +100,7 @@ Enemy.prototype.specialAttack = function(player){
   player.health = phealth;
   console.log(phealth);
   //player.specialAttack(spEnemy);
-  var playerBar = $(".player-status-bar").css('width', phealth / 2 + "%");
+  var playerBar = $(".enemy-status-bar").css('width', phealth / 2 + "%");
   console.log(this.name + " did " + enemyAtt + "%" + " damage to " + player.name + ". " + player.name + " now has " + phealth + "%" + " health.");
   if(phealth <= 0){
     console.log(spEnemy.name + " has won the Fight!");
@@ -107,6 +108,7 @@ Enemy.prototype.specialAttack = function(player){
     console.log(player.name + " has won the Fight!");
   }
 };
+
 var reptile = new Enemy({name: 'Reptile'});
 var goro = new Enemy({name: 'Goro'});
 var sonya = new Enemy({name: 'Sonya'});
