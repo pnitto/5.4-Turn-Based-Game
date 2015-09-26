@@ -17,6 +17,7 @@ var delay = 2000;
       selectedPlayer = new Player( {name: $(this).text()} );
       console.log(selectedPlayer);
       //return selectedPlayer
+    });
       $('.startGame').on('click', function(event, player){
         selectedEnemy = _.sample(enemyList);
         setTimeout(function(){
@@ -26,8 +27,10 @@ var delay = 2000;
       $('.attackButton').on('click', function(){
         selectedPlayer.attack(selectedEnemy);
       });
-        });
-
+      $('.specialAttack-btn').on('click', function(){
+        selectedPlayer.specialAttack(selectedEnemy);
+        console.log(selectedPlayer);
+      });
 
 
 var scorpion = new Player({name: 'Scorpion'});
@@ -50,6 +53,7 @@ Player.prototype.attack = function(enemy){
   var playerAttack =  Math.ceil(Math.random() * 10);
   enemyHealth = enemyHealth - playerAttack;
   enemy.health = enemyHealth;
+  var playerBar = $(".player-status-bar").css('width', enemyHealth / 2 + "%");
   console.log(this.name + " did " + playerAttack + "%" + " damage to " + enemy.name +". " + enemy.name  + " now has " + enemyHealth + "%"  + " health.");
   if(enemyHealth <= 0){
     console.log(player.name + " has won the Fight!");
@@ -60,9 +64,14 @@ Player.prototype.attack = function(enemy){
   }
 };
 
-
-Player.prototype.specialAttack = function(attack){
-  return  Math.ceil(Math.random() * 20);
+Player.prototype.specialAttack = function(enemy){
+  var spPlayer = this;
+  var eHealth = enemy.health;
+  var playeratt = Math.ceil(Math.random() * 20);
+  eHealth = eHealth - playeratt;
+  enemy.health = eHealth;
+  console.log(eHealth);
+  enemy.specialAttack(spPlayer);
 };
 
 function Enemy(character){
@@ -77,6 +86,7 @@ Enemy.prototype.attack = function(player){
   var enemyAttack = Math.ceil(Math.random() * 10.1);
   playerHealth = playerHealth - enemyAttack;
   player.health = playerHealth;
+  var enemyBar = $(".enemy-status-bar").css('width', playerHealth / 2 + "%")
   console.log(this.name + " did " + enemyAttack + "%" + " damage to " + player.name + ". " + player.name + " now has " + playerHealth + "%" + " health.");
 };
 

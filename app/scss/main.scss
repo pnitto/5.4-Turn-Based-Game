@@ -18,7 +18,23 @@ body {
   background-color: $base-background-color;
   color: $base-font-color;
   font-family: $base-font-family;
+  background-image: url("http://tabmok99.mortalkombatonline.com/courtyard_with_shangs_empty_throne.png");
+  background-repeat: no-repeat;
+  background-size: cover;
 }
+
 .Character-ul{
   list-style-type: none;
+}
+.player-status-bar {
+  height: 35px;
+  background-color: red;
+  width: 49%;
+  float:left;
+}
+.enemy-status-bar {
+  height: 35px;
+  background-color: red;
+  width: 49%;
+  float:right;
 }
