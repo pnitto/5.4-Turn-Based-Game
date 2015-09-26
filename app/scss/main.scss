@@ -45,15 +45,17 @@ top: 0;
 //Health Bars
 .player-status-bar {
   height: 35px;
-  background-color: red;
+  background-color: green;
   width: 49%;
   float:left;
+  border-radius: 10px 10px;
 }
 .enemy-status-bar {
   height: 35px;
-  background-color: red;
+  background-color: green;
   width: 49%;
   float:right;
+  border-radius: 10px 10px;
 }
 
 .player-status-bar h1,
@@ -74,4 +76,7 @@ top: 0;
 .enemies {
   height: 340px;
   display: none;
+  margin-left: 77%;
+  margin-top: -24%;
+  margin-bottom: 1%;
 }

@@ -21,7 +21,7 @@ var selectedEnemy;
         $('.js-enemyName').text(selectedEnemy.name);
         setTimeout(function(){
           console.log(selectedEnemy);
-        }, 2000);
+        }, 1000);
       });
 
       $('.js-attackButton').on('click', function(){
@@ -49,6 +49,10 @@ var selectedEnemy;
       });
 
       //character displays on 'click'
+      $('.scorpion-li').on('click',function(){
+        $('.scorpion').slideToggle();
+      })
+
       $('.scorpion-li').on('click', function(){
         $('.scorpion').css('display', 'block')
         $('.subzero').css('display','none')
@@ -76,6 +80,15 @@ var selectedEnemy;
         $('.subzero').css('display','none');
         $('.raiden').css('display','none');
       })
+//Enemy Display
+$('.js-startGame').on('click', function(){
+  $('.' + selectedEnemy.name).slideToggle();
+})
+
+$('.js-startGame').on('click',function(){
+  //console.log(selectedEnemy.name + " This is the enemy.")
+  $('.' + selectedEnemy.name).css('display', 'block');
+})
 
 var scorpion = new Player({name: 'Scorpion'});
 var subZero = new Player({name: 'SubZero'});
@@ -95,7 +108,7 @@ Player.prototype.attack = function(enemy){
   var playerAttack =  Math.ceil(Math.random() * 10);
   enemyHealth = enemyHealth - playerAttack;
   enemy.health = enemyHealth;
-  var playerBar = $(".player-status-bar").css('width', enemyHealth / 2 + "%");
+  var playerBar = $(".enemy-status-bar").css('width', enemyHealth / 2 + "%");
   console.log(this.name + " did " + playerAttack + "%" + " damage to " + enemy.name +". " + enemy.name  + " now has " + enemyHealth + "%"  + " health.");
   if(enemyHealth <= 0){
     console.log(player.name + " has won the Fight!");
