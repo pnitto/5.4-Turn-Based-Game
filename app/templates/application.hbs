@@ -3,20 +3,22 @@
 <div class="game-section">
     <br>
     <button class="js-startGame">Start Game</button>
-    <button class="js-attackButton">Attack</button>
-    <button class="js-specialAttack-btn">Special Attack</button>
+    <button class="js-attackButton"><a href="#" onmousedown="attackSound.play()">Attack</a></button>
+    <button class="js-specialAttack-btn"><a href="#" onmousedown="specialAttackSound.play()">Special Attack</a></button>
   </div>
 
 
   <div class="charactersMenu">
     <ul class="main-ul">
       <li class="active">
-      <h2>CHOOSE YOUR CHAMPION</h2>
+      <button class="select-player-btn">CHOOSE YOUR CHAMPION</button>
         <ul class="Character-ul">
+          <div class="js-character-options">
           <li class="js-character scorpion-li" value="Scorpion">Scorpion</li>
           <li class="js-character subzero-li" value="SubZero">SubZero</li>
           <li class="js-character raiden-li" value="Raiden">Raiden</li>
           <li class="js-character jaxx-li" value="Jaxx">Jaxx</li>
+        </div>
       </ul>
     </li>
   </div>

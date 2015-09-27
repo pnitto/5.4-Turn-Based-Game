@@ -12,6 +12,7 @@ var selectedEnemy;
    $('.js-character').on('click',function(event,player){
       selectedPlayer = new Player( {name: $(this).text()});
       $('.js-playerName').text(selectedPlayer.name);
+      $('.js-playerName').css('display','block');
       console.log(selectedPlayer);
       //return selectedPlayer
     });
@@ -19,6 +20,7 @@ var selectedEnemy;
       $('.js-startGame').on('click', function(event, player){
         selectedEnemy = _.sample(enemyList);
         $('.js-enemyName').text(selectedEnemy.name);
+        $('.js-enemyName').css('display','block');
         setTimeout(function(){
           console.log(selectedEnemy);
         }, 1000);
@@ -41,7 +43,7 @@ var selectedEnemy;
         $('.js-playerHealth').text(selectedPlayer.health + "%");
       });
 
-      $('.charactersMenu h2').on('click', function(){
+      $('.select-player-btn').on('click', function(){
         $('.charactersMenu ul ul').slideUp();
         if(!$(this).next().is(':visible')){
           $(this).next().slideDown();
@@ -58,35 +60,43 @@ var selectedEnemy;
         $('.subzero').css('display','none')
         $('.raiden').css('display', 'none')
         $('.jaxx').css('display', 'none')
-      })
+      });
+
+      $('.subzero-li').on('click', function(){
+        $('.subzero').slideToggle();
+      });
 
       $('.subzero-li').on('click', function(){
        $('.subzero').css('display', 'block');
        $('.raiden').css('display', 'none')
        $('.jaxx').css('display', 'none')
        $('.scorpion').css('display', 'none')
-      })
+      });
+
+      $('.raiden-li').on('click', function(){
+        $('.radien').slideToggle();
+      });
 
       $('.raiden-li').on('click', function(){
         $('.raiden').css('display', 'block');
         $('.subzero').css('display', 'none');
         $('.jaxx').css('display','none');
         $('.scorpion').css('display', 'none');
-      })
+      });
+
+      $('.jaxx-li').on('click', function(){
+        $('.jaxx').slideToggle();
+      });
 
       $('.jaxx-li').on('click', function(){
         $('.jaxx').css('display', 'block');
         $('.scorpion').css('display','none');
         $('.subzero').css('display','none');
         $('.raiden').css('display','none');
-      })
+      });
 //Enemy Display
 $('.js-startGame').on('click', function(){
   $('.' + selectedEnemy.name).slideToggle();
-})
-
-$('.js-startGame').on('click',function(){
-  //console.log(selectedEnemy.name + " This is the enemy.")
   $('.' + selectedEnemy.name).css('display', 'block');
 })
 
@@ -108,14 +118,18 @@ Player.prototype.attack = function(enemy){
   var playerAttack =  Math.ceil(Math.random() * 10);
   enemyHealth = enemyHealth - playerAttack;
   enemy.health = enemyHealth;
-  var playerBar = $(".enemy-status-bar").css('width', enemyHealth / 2 + "%");
+  var playerBar = $(".enemy-status-bar").css('width',  enemyHealth / 2 + "%");
   console.log(this.name + " did " + playerAttack + "%" + " damage to " + enemy.name +". " + enemy.name  + " now has " + enemyHealth + "%"  + " health.");
   if(enemyHealth <= 0){
+    $('.js-attackButton').css('display', 'none');
+    $('.js-specialAttack-btn').css('display', 'none');
     console.log(player.name + " has won the Fight!");
   } else if(player.health <= 0) {
+    $('.js-attackButton').css('display','none');
+    $('.js-specialAttack-btn').css('display','none');
     console.log(enemy.name + " has won the Fight!");
   } else{
-       return enemy.attack(player);
+     enemy.attack(player);
   }
 };
 
@@ -127,12 +141,16 @@ Player.prototype.specialAttack = function(enemy){
   enemy.health = eHealth;
   console.log(eHealth);
   //enemy.specialAttack(spPlayer);
-  var playerBar = $(".player-status-bar").css('width', eHealth / 2 + "%");
+  var playerBar = $(".enemy-status-bar").css('width', eHealth / 2 + "%");
   console.log(this.name + " did " + playeratt + "%" + " damage to " + enemy.name + ". " + enemy.name + " now has " + eHealth + "%" + " health.");
   if(eHealth <= 0){
     console.log(spPlayer.name + " has won the Fight!");
+    $('.js-attackButton').css('display','none');
+    $('.js-specialAttack-btn').css('display', 'none');
   } else if(spPlayer.health <= 0) {
     console.log(enemy.name + " has won the Fight!");
+    $('.js-attackButton').css('display','none');
+    $('.js-specialAttack-btn').css('display', 'none');
   } else {
     enemy.specialAttack(spPlayer);
   }
@@ -150,8 +168,17 @@ Enemy.prototype.attack = function(player){
   var enemyAttack = Math.ceil(Math.random() * 10.1);
   playerHealth = playerHealth - enemyAttack;
   player.health = playerHealth;
-  var enemyBar = $(".enemy-status-bar").css('width', playerHealth / 2 + "%");
+  var enemyBar = $(".player-status-bar").css('width', playerHealth / 2 + "%");
   console.log(this.name + " did " + enemyAttack + "%" + " damage to " + player.name + ". " + player.name + " now has " + playerHealth + "%" + " health.");
+  if(playerHealth <= 0 ){
+    $('.js-attackButton').css('display','none');
+    $('.js-specialAttack-btn').css('display', 'none');
+    console.log(this.name + " has won the Fight!")
+  }else if(enemy.health <= 0) {
+    $('.js-attackButton').css('display','none');
+    $('.js-specialAttack-btn').css('display', 'none');
+    console.log(player.name + "has won the Fight!")
+  }
 };
 
 Enemy.prototype.specialAttack = function(player){
@@ -160,13 +187,16 @@ Enemy.prototype.specialAttack = function(player){
   var enemyAtt = Math.ceil(Math.random() * 20);
   phealth = phealth - enemyAtt;
   player.health = phealth;
-  console.log(phealth);
   //player.specialAttack(spEnemy);
-  var playerBar = $(".enemy-status-bar").css('width', phealth / 2 + "%");
+  var playerBar = $(".player-status-bar").css('width', phealth / 2 + "%");
   console.log(this.name + " did " + enemyAtt + "%" + " damage to " + player.name + ". " + player.name + " now has " + phealth + "%" + " health.");
   if(phealth <= 0){
+    $('.js-attackButton').css('display','none');
+    $('.js-specialAttack-btn').css('display', 'none');
     console.log(spEnemy.name + " has won the Fight!");
   } else if(phealth.health <= 0) {
+    $('.js-attackButton').css('display','none');
+    $('.js-specialAttack-btn').css('display', 'none');
     console.log(player.name + " has won the Fight!");
   }
 };
@@ -176,7 +206,10 @@ var goro = new Enemy({name: 'Goro'});
 var sonya = new Enemy({name: 'Sonya'});
 var katana = new Enemy({name: 'Katana'});
 var enemyList = [reptile, goro, sonya, katana];
-// function player1Choice(){
-//
-// }
-// });
+
+
+var attackSound = new Audio();
+attackSound.src = "../sounds/PUNCH.mp3";
+
+var specialAttackSound = new Audio();
+specialAttackSound.src = "../sounds/ultra_combo.mp3";
