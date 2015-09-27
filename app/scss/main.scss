@@ -22,6 +22,7 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
 }
+
 .mortalCodebat {
   text-align: center;
   color: white;
@@ -46,13 +47,11 @@ top: 0;
   font-weight: bold;
   color: black;
   margin-top: 15%;
-
 }
 
 .charactersMenu ul ul {
   display: none;
 }
-.charactersMenu li.active ul {}
 //Health Bars
 .player-status-bar {
   position: relative;
@@ -71,10 +70,6 @@ top: 0;
   border-radius: 10px 10px;
 }
 
-.player-status-bar h1,
-.enemy-status-bar h1, {
-  padding-top: 10px;
-}
 //Game section
 .game-section {
   margin-top: 9%;
@@ -97,22 +92,31 @@ top: 0;
   position: absolute;
   right: 0.5%;
   display: none;
-  margin-top: -4%;
+  margin-top: 3%;
+  color: black;
 }
 
 .js-playerName {
   position: absolute;
   left: 0.5%;
   display: none;
-  margin-top: -2%;
+  margin-top: 3%;
+  color: black;
 }
 .js-playerHealth {
   float: right;
 }
 .js-character {
   font-size: 22px;
+  margin-left: 38%;
 }
-.js-character-option {
-  background-color: white;
-  
+.js-character-options {
+  background-color: lightgray;
+  position: absolute;
+  left: 9%;
+  width: 416px;
+}
+a {
+  text-decoration: none;
+  color: black;
 }

@@ -13,6 +13,7 @@ var selectedEnemy;
       selectedPlayer = new Player( {name: $(this).text()});
       $('.js-playerName').text(selectedPlayer.name);
       $('.js-playerName').css('display','block');
+      $('.js-character').css('display','none')
       console.log(selectedPlayer);
       //return selectedPlayer
     });
@@ -21,6 +22,7 @@ var selectedEnemy;
         selectedEnemy = _.sample(enemyList);
         $('.js-enemyName').text(selectedEnemy.name);
         $('.js-enemyName').css('display','block');
+        $('.js-startGame').css('display','none');
         setTimeout(function(){
           console.log(selectedEnemy);
         }, 1000);
@@ -43,12 +45,18 @@ var selectedEnemy;
         $('.js-playerHealth').text(selectedPlayer.health + "%");
       });
 
+
+      $('.select-player-btn').on('click'), function(){
+        $(this).slideDown('slow');
+      }
+
       $('.select-player-btn').on('click', function(){
         $('.charactersMenu ul ul').slideUp();
         if(!$(this).next().is(':visible')){
           $(this).next().slideDown();
         }
       });
+
 
       //character displays on 'click'
       $('.scorpion-li').on('click',function(){
@@ -74,7 +82,7 @@ var selectedEnemy;
       });
 
       $('.raiden-li').on('click', function(){
-        $('.radien').slideToggle();
+        $('.raiden').slideToggle();
       });
 
       $('.raiden-li').on('click', function(){
@@ -99,6 +107,8 @@ $('.js-startGame').on('click', function(){
   $('.' + selectedEnemy.name).slideToggle();
   $('.' + selectedEnemy.name).css('display', 'block');
 })
+
+
 
 var scorpion = new Player({name: 'Scorpion'});
 var subZero = new Player({name: 'SubZero'});
