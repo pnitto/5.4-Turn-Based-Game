@@ -72,7 +72,7 @@ top: 0;
 
 //Game section
 .game-section {
-  margin-top: 9%;
+  margin-top: 10%;
 }
 
 //Pictures
@@ -109,7 +109,14 @@ top: 0;
 .js-character {
   font-size: 22px;
   margin-left: 38%;
+  color:black;
+  font-weight: bold;
 }
+
+.js-character:hover {
+  color: red;
+}
+
 .js-character-options {
   background-color: lightgray;
   position: absolute;
@@ -119,4 +126,19 @@ top: 0;
 a {
   text-decoration: none;
   color: black;
+}
+
+.winLose {
+  position: absolute;
+  height: 56px;
+  width: 450px;
+  top: 200px;
+  left: 455px;
+  font-size: 30px;
+  font-weight: bold;
+  background-color: white;
+  border-radius: 31px;
+  text-align: center;
+  padding-top: 7px;
+  display: none;
 }

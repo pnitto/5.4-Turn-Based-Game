@@ -13,7 +13,7 @@ var selectedEnemy;
       selectedPlayer = new Player( {name: $(this).text()});
       $('.js-playerName').text(selectedPlayer.name);
       $('.js-playerName').css('display','block');
-      $('.js-character').css('display','none')
+      $('.js-character').css('display','none');
       console.log(selectedPlayer);
       //return selectedPlayer
     });
@@ -40,15 +40,16 @@ var selectedEnemy;
           .fadeIn('fast').delay(1000).fadeOut('fast').delay(1000);
         }
         button();
+        $('.js-specialAttack-btn').css('display', 'none');
         selectedPlayer.specialAttack(selectedEnemy);
         $('.js-enemyHealth').text(selectedEnemy.health + "%");
         $('.js-playerHealth').text(selectedPlayer.health + "%");
       });
 
 
-      $('.select-player-btn').on('click'), function(){
+      $('.select-player-btn').on('click', function(){
         $(this).slideDown('slow');
-      }
+      });
 
       $('.select-player-btn').on('click', function(){
         $('.charactersMenu ul ul').slideUp();
@@ -61,13 +62,13 @@ var selectedEnemy;
       //character displays on 'click'
       $('.scorpion-li').on('click',function(){
         $('.scorpion').slideToggle();
-      })
+      });
 
       $('.scorpion-li').on('click', function(){
-        $('.scorpion').css('display', 'block')
-        $('.subzero').css('display','none')
-        $('.raiden').css('display', 'none')
-        $('.jaxx').css('display', 'none')
+        $('.scorpion').css('display', 'block');
+        $('.subzero').css('display','none');
+        $('.raiden').css('display', 'none');
+        $('.jaxx').css('display', 'none');
       });
 
       $('.subzero-li').on('click', function(){
@@ -76,9 +77,9 @@ var selectedEnemy;
 
       $('.subzero-li').on('click', function(){
        $('.subzero').css('display', 'block');
-       $('.raiden').css('display', 'none')
-       $('.jaxx').css('display', 'none')
-       $('.scorpion').css('display', 'none')
+       $('.raiden').css('display', 'none');
+       $('.jaxx').css('display', 'none');
+       $('.scorpion').css('display', 'none');
       });
 
       $('.raiden-li').on('click', function(){
@@ -106,7 +107,7 @@ var selectedEnemy;
 $('.js-startGame').on('click', function(){
   $('.' + selectedEnemy.name).slideToggle();
   $('.' + selectedEnemy.name).css('display', 'block');
-})
+});
 
 
 
@@ -133,11 +134,13 @@ Player.prototype.attack = function(enemy){
   if(enemyHealth <= 0){
     $('.js-attackButton').css('display', 'none');
     $('.js-specialAttack-btn').css('display', 'none');
-    console.log(player.name + " has won the Fight!");
+    $('.winLose').text(player.name + " has won the Fight!");
+    $('.winLose').css('display','block');
   } else if(player.health <= 0) {
     $('.js-attackButton').css('display','none');
     $('.js-specialAttack-btn').css('display','none');
-    console.log(enemy.name + " has won the Fight!");
+    $('.winLose').text(enemy.name + " has won the Fight!");
+    $('.winLose').css('display','block');
   } else{
      enemy.attack(player);
   }
@@ -154,11 +157,13 @@ Player.prototype.specialAttack = function(enemy){
   var playerBar = $(".enemy-status-bar").css('width', eHealth / 2 + "%");
   console.log(this.name + " did " + playeratt + "%" + " damage to " + enemy.name + ". " + enemy.name + " now has " + eHealth + "%" + " health.");
   if(eHealth <= 0){
-    console.log(spPlayer.name + " has won the Fight!");
+    $('.winLose').text(spPlayer.name + " has won the Fight!");
+    $('.winLose').css('display','block');
     $('.js-attackButton').css('display','none');
     $('.js-specialAttack-btn').css('display', 'none');
   } else if(spPlayer.health <= 0) {
-    console.log(enemy.name + " has won the Fight!");
+    $('.winLose').text(enemy.name + " has won the Fight!");
+    $('.winLose').css('display','block');
     $('.js-attackButton').css('display','none');
     $('.js-specialAttack-btn').css('display', 'none');
   } else {
@@ -183,11 +188,13 @@ Enemy.prototype.attack = function(player){
   if(playerHealth <= 0 ){
     $('.js-attackButton').css('display','none');
     $('.js-specialAttack-btn').css('display', 'none');
-    console.log(this.name + " has won the Fight!")
+    $('.winLose').text(this.name + " has won the Fight!");
+    $('.winLose').css('display','block');
   }else if(enemy.health <= 0) {
     $('.js-attackButton').css('display','none');
     $('.js-specialAttack-btn').css('display', 'none');
-    console.log(player.name + "has won the Fight!")
+    $('.winLose').text(player.name + "has won the Fight!");
+    $('.winLose').css('display','block');
   }
 };
 
@@ -203,11 +210,13 @@ Enemy.prototype.specialAttack = function(player){
   if(phealth <= 0){
     $('.js-attackButton').css('display','none');
     $('.js-specialAttack-btn').css('display', 'none');
-    console.log(spEnemy.name + " has won the Fight!");
+    $('.winLose').text(spEnemy.name + " has won the Fight!");
+    $('.winLose').css('display','block');
   } else if(phealth.health <= 0) {
     $('.js-attackButton').css('display','none');
     $('.js-specialAttack-btn').css('display', 'none');
-    console.log(player.name + " has won the Fight!");
+    $('.winLose').text(player.name + " has won the Fight!");
+    $('.winLose').css('display','block');
   }
 };
 
